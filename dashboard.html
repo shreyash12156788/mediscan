@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | MediScan</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="logo">💊 MediScan</h1>
+        <p class="tagline">Dashboard</p>
+
+        <div class="card">
+            <p class="card-text">Scan your medicine and find same composition alternatives</p>
+            <a href="scan.html" class="btn">📸 Scan Medicine</a>
+        </div>
+
+        <div class="card" style="margin-top:14px;">
+            <p class="card-text">Or search manually for alternatives</p>
+            <form id="dashSearchForm" style="display:flex;gap:8px;max-width:420px;margin:auto;">
+                <input id="dashQuery" type="text" placeholder="Enter medicine or salt" style="flex:1;padding:10px;border-radius:8px;border:1px solid #ddd;" />
+                <button type="submit" class="btn">Search</button>
+            </form>
+            <p id="dashHint" style="text-align:center;color:#666;margin-top:8px;font-size:13px;">Or go to <a href="alternatives.html">Related Medicines</a></p>
+        </div>
+
+        <p class="logout">
+            <a href="#" id="logoutBtn">Logout</a>
+        </p>
+    </div>
+
+        <!-- Firebase SDKs (compat) for auth -->
+        <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+            <!-- Firebase modular initializer -->
+            <script type="module" src="js/firebase-module.js"></script>
+            <script src="js/main.js"></script>
+        <script>
+            const dashForm = document.getElementById('dashSearchForm');
+            const dashInput = document.getElementById('dashQuery');
+
+            dashForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const q = (dashInput.value || '').trim();
+                if (!q) return;
+                // Save query to localStorage and open alternatives page
+                localStorage.setItem('manualQuery', q);
+                // Clear previous scan results to avoid confusion
+                localStorage.removeItem('medicineName');
+                localStorage.removeItem('salt');
+                window.location.href = 'alternatives.html';
+            });
+        </script>
+
+    </body>
+    </html>

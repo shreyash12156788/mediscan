@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scan Medicine | MediScan</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="logo">💊 MediScan</h1>
+    <p class="tagline">Scan Medicine</p>
+
+    <!-- IMAGE INPUT -->
+    <input type="file"
+           id="medicineImage"
+           accept="image/*">
+
+    <!-- IMAGE PREVIEW -->
+    <img id="preview"
+         style="width:100%; margin-top:12px; border-radius:10px; display:none;">
+
+    <!-- SCAN BUTTON -->
+    <button class="btn" onclick="scanMedicine()">
+        Scan Medicine
+    </button>
+
+    <!-- STATUS TEXT -->
+    <p id="scanStatus" class="status"></p>
+
+    <p class="back">
+        <a href="dashboard.html">← Back to Dashboard</a>
+    </p>
+</div>
+
+<!-- OCR LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+
+<!-- MAIN JS -->
+<!-- Firebase modular initializer -->
+<script type="module" src="js/firebase-module.js"></script>
+<!-- MAIN JS -->
+<script src="js/main.js"></script>
+
+<script>
+    // Image preview (important for proper scan)
+    const imageInput = document.getElementById("medicineImage");
+    const preview = document.getElementById("preview");
+
+    imageInput.addEventListener("change", () => {
+        if (imageInput.files.length > 0) {
+            preview.src = URL.createObjectURL(imageInput.files[0]);
+            preview.style.display = "block";
+        }
+    });
+</script>
+
+</body>
+</html>
